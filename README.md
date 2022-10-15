@@ -269,7 +269,174 @@ class AppleFactory implements PhoneFactory{
 - 符合依赖抽象原则
 - 简化调用者可以方便知道产品族
 
-## 缺点
+#### 缺点
 
 - 产品族难扩展，修改一个产品需要所有工厂都完成扩展
 - 增加了系统的抽象性和理解难度；
+
+### 单例模式
+
+单例模式是最重要一个设计模式之一，他简单、常考但易错
+
+单例模式实现的类**负责创建自己的对象**，同时保证只有一个对象被创建。并且这个类提供了一种**访问**其唯一的对象的方式，在使用中不需要实例化对象，而是直接访问类创建出来的那一个唯一对象。
+
+如此保证了全局只有一个实例对象，避免了对象的频繁创建与销毁，可以很好地节省系统资源。
+
+值得一提的是，在spring中，创建spring bean的默认方式就是单例模式。
+
+#### 懒汉模式
+
+懒汉模式最为简单，但是同时他并不能保证线程安全。也就是当多个线程同时创建时，有可能会创建多个实例对象。
+
+```java
+class LazySingleton {
+    private static LazySingleton instance;
+    // 将 new LazySingleton() 堵死,这是单例模式的精髓所在，将构造器私有化，外界就无法进行自由创建实例了。
+    private LazySingleton() {
+    }
+    // 创建私有静态实例，如果这个类第一次使用的时候就会进行创建。
+    public static LazySingleton getInstance() {
+        if (instance == null) {
+            instance = new LazySingleton();
+        }
+        return instance;
+    }
+}
+```
+
+客户端调用：
+
+```java
+ public static void main(String[] args) {
+        Set<LazySingleton> set = new HashSet<>();
+        for (int i = 0; i < 10000; i++) {
+            new Thread(()->{
+                try {
+                    Thread.sleep(100);
+                    set.add(LazySingleton.getInstance());
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        }
+        System.out.println(set.size());
+    }
+```
+
+最终输出可能不是1（结果具有随机性），可见其不并不是线程安全的。
+
+#### 懒汉模式改良
+
+```java
+class LazySingleton {
+    private static LazySingleton instance;
+    // 将 new LazySingleton() 堵死,这是单例模式的精髓所在，将构造器私有化，外界就无法进行自由创建实例了。
+    private LazySingleton() {
+    }
+    // 创建私有静态实例，如果这个类第一次使用的时候就会进行创建。
+    public static synchronized LazySingleton getInstance() {
+        if (instance == null) {
+            instance = new LazySingleton();
+        }
+        return instance;
+    }
+}
+```
+
+改良后的懒汉模式在 getInstance()方法上加入了 synchronized ，从而保证了线程安全。但是如此效率大幅下降。
+
+#### 饿汉模式
+
+饿汉模式的实例对象在类加载的时候就被初始化
+
+```java
+class HungrySingleton {
+    private static HungrySingleton instance = new HungrySingleton();
+    private HungrySingleton (){}
+    public static HungrySingleton getInstance() {
+        return instance;
+    }
+}
+```
+
+但是如果调用类的静态方法，也会引起实例对象的初始化，以至于造成不必要的对象被创建，造成资源浪费。
+
+```java
+class HungrySingleton {
+    private static HungrySingleton instance = new HungrySingleton();
+    private HungrySingleton (){}
+    public static HungrySingleton getInstance() {
+        return instance;
+    }
+    
+    public static Date getData(){
+        return new Date();
+    }
+}
+```
+
+比如我们在类中加入了一个方法是查新现在的时间。如果我们只调用getDate类，我们并不希望创建一个实例对象，但是仍然被创建了。
+
+> 如果不能理解为什么调用静态方法的时候也会引起实例对象的初始化，可以看一下jvm类的加载过程。
+>
+> 简言之调用类的静态方法将会引起类的加载，在此过程中对类的静态成员变量进行初始化。
+
+#### 饱汉模式
+
+饱汉模式可以很好地保障线程安全。
+
+```java
+class FullSingleton {
+        private FullSingleton() {}
+        // 注意此除加入了volatile，保证变量的可见性，这也在初始化的时候其他线程调用就可以及时知道实例对象是否完成了初始化
+        private static volatile FullSingleton instance = null;
+
+        public static FullSingleton getInstance() {
+            if (instance == null) {
+                // 加锁 对类进行加锁，效果是一旦发现实例对象未初始化，那么立刻锁住对象，保证初始化未完成之前的线程只能有序进行操作。
+                synchronized (FullSingleton.class) {
+                    /* 为什么这里也需要进行判断？ 在上一行的代码进行加锁保证了不同线程对此处的有序进行，如果不判断null，那么放进来
+                    的线程将会依次对实例进行初始化，因此判断一个null，就可以保证只有第一个进来的线程可以进行初始化。*/
+                    if (instance == null) {
+                        instance = new FullSingleton();
+                    }
+                }
+            }
+            return instance;
+        }
+}
+```
+
+#### 静态内部类
+
+```java
+class StaticSingleton {
+    //类的内部存在一个静态内部类，这个内部类初始化过程中会进行实例对象的初始化
+    private static class SingletonHolder {
+        private static final StaticSingleton INSTANCE = new StaticSingleton();
+    }
+    private StaticSingleton (){}
+    public static final StaticSingleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+```
+
+这个方式利用了类加载机制，保证了只有一个线程可以进程线程初始化。
+
+相较于饱汉模式，实现更加简单，但是这种方式只适用于静态域的情况。
+
+#### 枚举类模式
+
+```java
+enum EnumSingleton {
+    INSTANCE;
+    public EnumSingleton getInstance(){
+        return INSTANCE;
+    }
+}
+```
+
+类加载模式实现简单、线程安全，只是不支持懒加载
+
+但是他并没有广泛使用开。
