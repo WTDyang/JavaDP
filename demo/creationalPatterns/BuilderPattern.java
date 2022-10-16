@@ -6,7 +6,7 @@ package creationalPatterns;
  * @author WTDYang
  * @date 2022/10/16
  */
-public class Builder {
+public class BuilderPattern {
     public static void main(String[] args) {
         User user = User.builder()
                 .name("ounces")

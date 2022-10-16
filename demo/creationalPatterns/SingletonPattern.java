@@ -11,7 +11,7 @@ import java.util.Set;
  * @date 2022/10/15
  */
 @SuppressWarnings("all")
-public class Singleton {
+public class SingletonPattern {
     public static void main(String[] args) {
         Long begin = new Date().getTime();
         Set<LazySingleton> set = new HashSet<>();

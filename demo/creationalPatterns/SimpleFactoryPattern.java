@@ -6,7 +6,13 @@ package creationalPatterns;
  * @author WTDYang
  * @date 2022/10/14
  */
-public class SimpleFactory {
+public class SimpleFactoryPattern{
+    public static void main(String[] args) {
+        Food food = SimpleFactory.makeFood("Noodle");
+        food.end();
+    }
+}
+class SimpleFactory {
     public static Food makeFood(String name) {
         if (name.equals("Noodle")) {
             Food noodle = new Noodle();
@@ -19,12 +25,6 @@ public class SimpleFactory {
         } else {
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        Food food = SimpleFactory.makeFood("Noodle");
-        food.end();
-
     }
 }
 interface Food{
