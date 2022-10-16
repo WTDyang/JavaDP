@@ -570,3 +570,143 @@ class LombokUser{
 同时可以在build()方法中进行一些参数校验，可以强调出一些必填字段让调用者感知。
 
 ### 原型模式
+
+原型模式非常简单，他做的是通过已有对象在保证性能的前提下创建新的对象，拷贝对象。
+
+在Java中就是实现 Cloneable接口，重写clone()方法。
+
+#### 浅拷贝
+
+首先存在一个类叫做Peo，浅拷贝的类中存在这个类的引用类型参数
+
+```java
+class Peo{
+    public String name;
+    public Peo(String name){
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Peo{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+}
+```
+
+代码中如此实现：
+
+```java
+class ShallowClone implements Cloneable{
+    public int type;
+    public Peo peo;
+    public ShallowClone(int type,Peo peo){this.type = type;this.peo = peo;}
+    public Object Clone(){
+        Object clone = null;
+        try {
+            clone = super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+        return clone;
+    }
+
+    @Override
+    public String toString() {
+        return "ShallowClone{" +
+                "type=" + type +
+                ", peo='" + peo + '\'' +
+                '}';
+    }
+}
+```
+
+客户端调用
+
+```java
+public class PrototypePattern {
+    public static void main(String[] args) {
+        ShallowClone shallowClone = new ShallowClone(1,new Peo("num1"));
+        ShallowClone shallowClone1 = (ShallowClone) shallowClone.Clone();
+        shallowClone1.type = 2;
+        shallowClone1.peo.name = "num2";
+        System.out.println(shallowClone);
+        System.out.println(shallowClone1);
+    }
+}
+```
+
+结果为：
+
+```
+ShallowClone{type=1, peo='Peo{name='num2'}'}
+ShallowClone{type=2, peo='Peo{name='num2'}'}
+```
+
+可以看到普通数据类型的属性没有问题，但是对克隆后对象的引用类型的属性的修改却引起了原型对象的修改，这是因为两个对象的引用类型属性引用了同一个对象。
+
+为了避免这种情况就需要了深拷贝。
+
+#### 深拷贝
+
+```java
+class DeepClone implements Cloneable{
+    public int type;
+    public Peo peo;
+    public DeepClone(int type,Peo peo){this.type = type;this.peo = peo;}
+    public Object Clone(){
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DeepClone{" +
+                "type=" + type +
+                ", peo='" + peo + '\'' +
+                '}';
+    }
+}
+```
+
+如此客户端调用：
+
+
+```java
+DeepClone deepClone = new DeepClone(1,new Peo("num1"));
+DeepClone deepClone1 = (DeepClone)deepClone.Clone();
+deepClone1.type = 2;
+deepClone1.peo.name = "num2";
+System.out.println(deepClone);
+System.out.println(deepClone1);
+```
+
+输出结果为：
+
+```
+DeepClone{type=1, peo='Peo{name='num1'}'}
+DeepClone{type=2, peo='Peo{name='num2'}'}
+
+```
+
+和预计结果相同，克隆后的对象属性改变均为影响模型对象。
+
+但是这个前提是Peo类实现了Cloneable接口，重写了clone()方法
+
+#### 序列化与反序列化
+
+实现类可以实现Serializable接口，并在克隆方法中实现序列化与反序列化操作。
+
+在单纯在clone中很少使用。但是我们经常做的是将类序列化后存放在redis等缓存中。
+
+当再次用到这个对象的时候就进行反序列化得到新的对象。
+
+这个世界上也是原型模式的一个应用
+
+
+
+使用序列化的方式方式比较繁琐，这里只是研究设计模式概念便不深入研究。读者可以自行搜索。
