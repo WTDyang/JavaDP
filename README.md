@@ -93,7 +93,7 @@ Gang of Four
 
 
 
-## 建造者模式
+## 创建型模式
 
 ### 工厂模式
 
@@ -264,12 +264,12 @@ class AppleFactory implements PhoneFactory{
 
 **优劣分析**
 
-优点：
+**优点**：
 
 - 符合依赖抽象原则
 - 简化调用者可以方便知道产品族
 
-#### 缺点
+**缺点**
 
 - 产品族难扩展，修改一个产品需要所有工厂都完成扩展
 - 增加了系统的抽象性和理解难度；
@@ -440,3 +440,133 @@ enum EnumSingleton {
 类加载模式实现简单、线程安全，只是不支持懒加载
 
 但是他并没有广泛使用开。
+
+### 建造者模式
+
+建造者模式也是一种非常常用的设计模式，它提供了一种创建对象的优雅解决方案。
+
+他的常见形式为创建者对象进行链式编程进行属性赋值，最后build产生对象。
+
+例如：
+
+```java
+User user =  User.builder()
+		.name()
+		.password()
+		.email()
+		.build();
+```
+
+我们可以理解为，将一道复杂的菜品一步一步添加佐料，最终一起放到炒勺里面爆炒出锅。
+
+**代码示例如下：**
+客户端调用：
+
+```java
+public class Builder {
+    public static void main(String[] args) {
+        User user = User.builder()
+                .name("ounces")
+                .password("123")
+                .email("123@ounces.com")
+                .build();
+        System.out.println(user);
+    }
+}
+```
+
+实现建造者模式的类：
+
+```java
+class User {
+    private String name;
+    private String password;
+    private String email;
+
+    //由于后面会用到全参构造器，但是我们并不想客户端直接调用我们的构造器构建对象，因此将全参构造器设为私有
+    private User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+
+    //构造器可以使用一个静态内部类，他的属性应当与所要构造的类相同，如此才能接收到全部参数
+    public static class UserBuilder {
+        private String name;
+        private String password;
+        private String email;
+        //私有化构造器
+        private UserBuilder() {
+        }
+
+        // 我们需要链式调用，因此需要返回this，也就是返回一个指向这个对象本身的指针
+        public UserBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        //build()方法，将接收到的参数赋予新构建的对象
+        //我们可以在build方法中加入一些参数校验规则。
+        public User build() {
+            if (name == null || password == null) {
+                throw new RuntimeException("用户名和密码必填");
+            }
+            return new User(name,password,email);
+        }
+    }
+
+    //我们使用userBuilder方法隐藏了new UserBuilder()，是的代码构造器在被使用的时候更加优雅
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+}
+```
+
+**代码分析：**
+
+建造者模式可以通过一个静态内部类，因为静态内部类可以在外部类没有实例化的条件下进行实例化。
+
+基本思路为：首先实例化一个静态内部类UserBuilder对象，接下来链式赋值，最后使用 build()方法完成实例化。
+
+链式编程的一个精髓就是返回.this，如此不断将操作后的对象返回并进行下一步操作，从而完成链式操作。
+
+**日常应用**
+
+Lombok的@builder注解便可完成上述一堆代码
+
+```java
+@Builder
+class LombokUser{
+    private String name;
+    private String password;
+    private String email;
+}
+```
+
+**特点分析**
+
+首先建造者模式的链式写法使得对字段赋值集中在一起，使代码简洁易懂。不然将会在代码中出现一堆`xxxSet()`方法。
+
+同时可以在build()方法中进行一些参数校验，可以强调出一些必填字段让调用者感知。
+
+### 原型模式
