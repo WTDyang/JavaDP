@@ -41,12 +41,12 @@ Gang of Four
 ├─ 结构型模式（Structural Patterns）
 │		├─ 适配器模式（Adapter Pattern）
 │		├─ 桥接模式（Bridge Pattern）
-│		├─ 过滤器模式（Filter、Criteria Pattern）
+│		├─ 代理模式（Proxy Pattern）
 │		├─ 组合模式（Composite Pattern）
 │		├─ 装饰器模式（Decorator Pattern）
 │		├─ 外观模式（Facade Pattern）
 │		├─ 享元模式（Flyweight Pattern）
-│    	└─ 代理模式（Proxy Pattern）
+│    	└─ 过滤器模式（Filter、Criteria Pattern）
 │    
 └─ 行为型模式（Behavioral Patterns）
 		├─ 责任链模式（Chain of Responsibility Pattern）
@@ -710,3 +710,131 @@ DeepClone{type=2, peo='Peo{name='num2'}'}
 
 
 使用序列化的方式方式比较繁琐，这里只是研究设计模式概念便不深入研究。读者可以自行搜索。
+
+## 结构型模式
+
+### 适配器模式
+
+#### 对象适配器
+
+适配器模式是解决接口转化的问题。
+
+就好像是日常生活中使用的插口转化器
+
+![image-20221017171819580](README.assets/image-20221017171819580.png)
+
+如上所示，假如我们需要使用USB接口的移动硬盘，但是我们的手机只有一个Type-C的接口，现在我们就要使用一个适配器解决接口转化的问题。
+
+**示例代码**：
+
+首先定义一个接口，例如USB接口，如果某个类实现了USB接口便可认为这个类有一个USB的接口来实现USB功能（传输数据）
+
+```java
+interface USB{
+    public void transferData();
+}
+```
+
+接下来创建一个类实现这个接口，例如我们有一个u盘 ，u盘上面恰好有一个usb的接口
+
+```java
+class USBDrive implements USB{
+
+    @Override
+    public void transferData() {
+        System.out.println("U盘正在传输数据");
+    }
+}
+```
+
+然后定义适配器
+
+```java
+class USBTypeCAdapter{
+    private USB usb;
+    public USBTypeCAdapter(USBDrive usb){
+        this.usb = usb;
+    }
+    @Override
+    public void transferData() {
+        usb.transferData();
+    }
+}
+```
+
+客户端调用：
+
+```java
+public class AdapterPattern {
+    public static void main(String[] args) {
+        USBDrive usbDrive = new USBDrive();
+        USBTypeCAdapter usbTypeCAdapter = new USBTypeCAdapter(usbDrive);
+        usbTypeCAdapter.transferData();
+    }
+}
+```
+
+可以看到，我们最后使用的是usbTypeCAdapter的数据传输，而不是直接使用usbDriver的传输
+
+同时我们可以改造一下，令usbTypeCAdapter实现一个 叫做TypeC的接口。
+
+```java
+class USBTypeCAdapter implements TypeC{...}
+```
+
+客户端使用TypeC类型引用接收对象的引用
+
+```java
+ public static void main(String[] args) {
+        USBDrive usbDrive = new USBDrive();
+        TypeC usbTypeCAdapter =  new USBTypeCAdapter(usbDrive);
+        usbTypeCAdapter.transferData();
+
+    }
+```
+
+我们更可以直观发现，现在我们客户端可以认为使用typeC的接口而不是Usb的接口了
+
+**如上，我们将一个对象通过适配器的包装，可以通过这个对象类没有实现的接口进行调用**
+
+#### 类适配器模式
+
+
+
+### 代理模式
+
+
+
+
+
+
+
+### 桥接模式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 行为型模式
