@@ -799,6 +799,140 @@ class USBTypeCAdapter implements TypeC{...}
 
 #### 类适配器模式
 
+对象适配器通常将实例化对象进行包装，但是类适配器并不需要进行示例化，而是在类上直接进行包装。
+
+那么我们思考如果完成这种功能呢？
+我们知道类的继承，自类可以继承父类的功能（除非final修饰），如果我们定义了一个子类（适配器类），他继承了适配器需要的接口（需求接口），并且继承了父类，那么他就是父类的一个适配器类了。因为我们在重写接口方法的时候，可以直接调用父类的方法，相当于将父类的方法进行了进一步封装。
+
+**我们来看一个示例**
+
+首先定义一个适配器
+
+```java
+interface Adapter{
+    void printDate();
+}
+```
+
+接下来定义需要被适配器修饰的类，也就是上述的父类
+
+```java
+class DateInfo{
+    public static String getDate(){
+      return new Date().toString();
+   }
+}
+```
+
+接下来完成适配器类
+
+```java
+class DateAdapter extends DateInfo implements Adapter{
+
+    @Override
+     public void printDate() {
+        System.out.println(
+                "当前时间为："
+                +getDate()
+        );
+    }
+}
+```
+
+客户端调用
+
+```java
+public class ClassAdapterPattern {
+    public static void main(String[] args) {
+        new DateAdapter().printDate();
+    }
+}
+```
+
+**类适配器与对象适配器的比较**
+
+我们看起来，对象适配器仿佛是将一个个示例的对象进行包装。而类适配器是静态地在类中使用方法进行包装。
+
+在平时仍然是对象适配器的会更为灵活与广泛。
+
+#### 默认适配器
+
+默认适配器最为简单，封装性稍差，但是最好理解。
+
+默认适配器实际上无法认为是一个真正的适配器，因为他只是对需要实现的接口进行了简易化包装。
+
+他的适配器更像是对于用户来说，复杂的接口实现对用户来说更加友善了，但是对于机器来说效果不大。
+
+这里引用[一篇优秀文章](https://juejin.cn/post/6844903695667167240)的例子进行说明
+
+---
+
+
+
+我们希望使用`Appache commons-io `包中的 `FileAlterationListener`对文件进行监控
+
+但是此接口定义了十分多的抽象方法，如果我们直接使用此接口，必须实现他的所有方法，无法避免地会造成代码大量地臃肿。
+
+```java
+public interface FileAlterationListener {
+    void onStart(final FileAlterationObserver observer);
+    void onDirectoryCreate(final File directory);
+    void onDirectoryChange(final File directory);
+    void onDirectoryDelete(final File directory);
+    void onFileCreate(final File file);
+    void onFileChange(final File file);
+    void onFileDelete(final File file);
+    void onStop(final FileAlterationObserver observer);
+}
+```
+
+但是我们往常只希望使用他的创建和删除文件地两个功能，于是我们可以定义如下一个适配器，在这个适配器中，实现了上述地复杂接口，但是所有的方法均置为空方法。当我们需要再使用这个接口的时候，只需要继承这个抽象的适配器对象就可以了，这样就不需要实现所有的方法了。
+
+```java
+public class FileAlterationListenerAdaptor implements FileAlterationListener {
+
+    public void onStart(final FileAlterationObserver observer) {
+    }
+
+    public void onDirectoryCreate(final File directory) {
+    }
+
+    public void onDirectoryChange(final File directory) {
+    }
+
+    public void onDirectoryDelete(final File directory) {
+    }
+
+    public void onFileCreate(final File file) {
+    }
+
+    public void onFileChange(final File file) {
+    }
+
+    public void onFileDelete(final File file) {
+    }
+
+    public void onStop(final FileAlterationObserver observer) {
+    }
+}
+```
+
+当我们使用的时候，直接继承这个适配器类，选择进行方法地重写。
+
+```java
+public class FileMonitor extends FileAlterationListenerAdaptor {
+    public void onFileCreate(final File file) {
+        // 文件创建
+        doSomething();
+    }
+
+    public void onFileDelete(final File file) {
+        // 文件删除
+        doSomething();
+    }
+}
+```
+
 
 
 ### 代理模式

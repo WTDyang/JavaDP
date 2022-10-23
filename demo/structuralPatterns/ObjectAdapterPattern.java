@@ -6,7 +6,7 @@ package structuralPatterns;
  * @author WTDYang
  * @date 2022/10/17
  */
-public class AdapterPattern {
+public class ObjectAdapterPattern {
     public static void main(String[] args) {
         USBDrive usbDrive = new USBDrive();
         TypeC usbTypeCAdapter =  new USBTypeCAdapter(usbDrive);
