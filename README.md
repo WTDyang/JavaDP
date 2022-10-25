@@ -937,11 +937,69 @@ public class FileMonitor extends FileAlterationListenerAdaptor {
 
 ### 代理模式
 
+代理模式顾名思义，是依托别人去完成以一项自己无法完成的认为，或者让被人帮助自己去完成一项任务。
 
+我们在日常中最长遇到的问题就是网络代理。当我们无法连接到某网段的网络的时候，就可以摆脱一个代理服务器，代理服务器可以帮我们进行数据的转发和初步校验。
 
+代理模式 的一个典型例子就是租客和租户的模式。我们知道我们经常需要找中介去买房子或者卖房子。我们研究卖房子这一种行为的时候。我们可以认为房东自己可以卖房子，但是他的人脉等资源少于中介，所以去找中介帮忙。
 
+因此中介需要实现和房东相同的饿功能接口，所以房东和中介需要实现相同的接口。
 
+看一下代码：
 
+**售房接口**
+
+```java
+interface SaleHouse{
+    void saleHouse(int price,int houseId);
+}
+```
+
+**房东**
+
+```java
+class Landlord implements SaleHouse{
+
+    @Override
+    public void saleHouse(int price, int houseId) {
+        System.out.printf("以%d的价格卖出%d号房子\n",price,houseId);
+    }
+}
+```
+
+**中介**
+
+```java
+class Intermediary implements SaleHouse{
+
+    private SaleHouse landlord;
+    public Intermediary(SaleHouse landlord){
+        this.landlord = landlord;
+    }
+    @Override
+    public void saleHouse(int price, int houseId) {
+        System.out.println("在中介上的帮助下开始交易");
+        landlord.saleHouse(price,houseId);
+        System.out.println("在中介的帮助下交易完成");
+    }
+}
+```
+
+**客户端**
+
+```java
+public static void main(String[] args) {
+    Landlord landlord = new Landlord();
+    Intermediary intermediary = new Intermediary(landlord);
+    intermediary.saleHouse(100,1);
+}
+```
+
+**JAVA中的代理**
+
+使用java的java.lang.reflect包下提供了一个Proxy类和一个InvocationHandler接口可以实现动态代理
+
+同时也可以使用Spring AOP完成动态代理
 
 ### 桥接模式
 
