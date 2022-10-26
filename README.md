@@ -32,16 +32,16 @@ Gang of Four
 │
 │    
 ├─ 创建型模式（Creational Patterns）
-│		├─ 工厂模式（Factory Pattern）
-│		├─ 抽象工厂模式（Abstract Factory Pattern）
-│		├─ 单例模式（Singleton Pattern）
-│		├─ 建造者模式（Builder Pattern）
-│    	└─ 原型模式（Prototype Pattern）
+│		├─ 工厂模式（Factory Pattern）√
+│		├─ 抽象工厂模式（Abstract Factory Pattern）√
+│		├─ 单例模式（Singleton Pattern）√
+│		├─ 建造者模式（Builder Pattern）√
+│    	└─ 原型模式（Prototype Pattern）√
 │    
 ├─ 结构型模式（Structural Patterns）
-│		├─ 适配器模式（Adapter Pattern）
-│		├─ 桥接模式（Bridge Pattern）
-│		├─ 代理模式（Proxy Pattern）
+│		├─ 适配器模式（Adapter Pattern）√
+│		├─ 桥接模式（Bridge Pattern）√
+│		├─ 代理模式（Proxy Pattern）√
 │		├─ 组合模式（Composite Pattern）
 │		├─ 装饰器模式（Decorator Pattern）
 │		├─ 外观模式（Facade Pattern）
@@ -1003,11 +1003,122 @@ public static void main(String[] args) {
 
 ### 桥接模式
 
+桥接模式是 降低代码耦合性，减少代码量的一个优秀的解决方案。
+
+我们考虑一个情况
+
+假如我们现在有可口可乐和百事可乐两家 Cola公司，他们现在都可以提供生产Cola的服务。但是现在都没有销售的能力。
+
+如果我们给他们销售的功能，就需要在两家公司分别重构代码，如果是100家公司，就需要重构100份代码，这显然不是我们希望看到的。
+
+于是我们将 Cola公司的原职能和销售职能抽离出来，形成两个业务。
+
+ Cola公司建立一个抽象类，在类中有一个销售接口的示例对象。我们可以通过这个对象提供的销售业务进行 Cola的销售 。
+
+而实现不同的销售方式（如线上销售和线下销售）就只需要分别实现销售接口，并将示例对象传递到 Cola对象中即可了。
 
 
 
+这样抽象类中的示例引用和接口之间就形成了一个**桥梁**
 
 
+
+ **代码如下**:
+
+**销售接口**
+
+```java
+interface Sale{
+    void saleCola();
+}
+```
+
+ **Cola抽象类**
+
+```java
+abstract class Cola{
+    Sale sale;
+    public Cola(Sale sale){
+        this.sale = sale;
+    }
+
+    public void saleCola(){
+        sale.saleCola();
+    }
+
+}
+```
+
+**Cola实现类**
+
+```java
+class PepsiCola extends Cola{
+
+    public PepsiCola(Sale sale) {
+        super(sale);
+    }
+    public void saleCola(){
+        System.out.print("百事可乐：");
+        super.saleCola();
+    }
+}
+```
+
+
+
+```java
+class CocaCola extends Cola{
+
+    public CocaCola(Sale sale) {
+        super(sale);
+    }
+    public void saleCola(){
+        System.out.print("可口可乐：");
+        super.saleCola();
+    }
+
+}
+```
+
+
+
+**销售实现类**
+
+```java
+class PhysicalStore implements Sale{
+
+    @Override
+    public void saleCola() {
+        System.out.println("通过实体店售出");
+    }
+}
+```
+
+
+
+```java
+class NetworkStore implements  Sale{
+
+    @Override
+    public void saleCola() {
+        System.out.println("通过网店售出");
+    }
+}
+```
+
+**客户端**
+
+```java
+public static void main(String[] args) {
+    Sale physicalStore = new PhysicalStore();
+    PepsiCola pepsiCola = new PepsiCola(physicalStore);
+    pepsiCola.saleCola();
+    Sale networkStore = new NetworkStore();
+    CocaCola cocaCola = new CocaCola(networkStore);
+    cocaCola.saleCola();
+
+}
+```
 
 
 
@@ -1030,3 +1141,4 @@ public static void main(String[] args) {
 
 
 ## 行为型模式
+
