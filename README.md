@@ -42,8 +42,8 @@ Gang of Four
 │		├─ 适配器模式（Adapter Pattern）√
 │		├─ 桥接模式（Bridge Pattern）√
 │		├─ 代理模式（Proxy Pattern）√
-│		├─ 组合模式（Composite Pattern）
-│		├─ 装饰器模式（Decorator Pattern）
+│		├─ 组合模式（Composite Pattern）√
+│		├─ 装饰器模式（Decorator Pattern）√
 │		├─ 外观模式（Facade Pattern）
 │		├─ 享元模式（Flyweight Pattern）
 │    	└─ 过滤器模式（Filter、Criteria Pattern）
@@ -1120,17 +1120,52 @@ public static void main(String[] args) {
 }
 ```
 
+### 组合模式
 
+组合模式比较好理解，我们日常生活中的层级结构多半是树形结构，如企业的各个部门，形成了以总公司到最下面各个小组之间的树形结构，如果我们要统计本公司总的人数，可以每个部门分别进行统计，然后不断上传，直到总公司便可以得出结果。
 
+此时我们直到他们都可以统计人口、删减部门，因此可以定义一个统一接口进行规范。
 
+**定义接口**
 
+```java
+interface Department{
+    void add();
+    void remove();
+    int getCount();
+}
+```
 
+**实现类**
 
+```java
+class Dept implements Department{
 
+    List<Department> children;
+    @Override
+    public void add() {
 
+    }
 
+    @Override
+    public void remove() {
 
+    }
 
+    @Override
+    public int getCount() {
+        int count  = 0;
+        for (Department child : children) {
+            count += child.getCount();
+        }
+        return count;
+    }
+}
+```
+
+一般类中均有add(node)、remove(node)、getChildren()方法。因为这种模式比较简单，此处不多赘述。
+
+### 装饰器模式
 
 
 
