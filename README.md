@@ -1167,13 +1167,69 @@ class Dept implements Department{
 
 ### 装饰器模式
 
+装饰器和代理模式很像，不同在于在代理模式中，我们着重去实现接口定义的方法，也就是对原方法进行功能增强。但是在装饰器模式中，我们着重于去扩展新的小功能。
 
+举一个小栗子
 
+我们现在存在一个垃圾桶，现在有收垃圾这一个功能，现在我们希望对他进行一些改造，希望他有一个能够跑来跑去的功能，这样就方便我们随时随地都可以丢垃圾了。
 
+于是我们做了一个大箱子，将垃圾桶蹲到箱子里面，子啊箱子的外面安装了一些小轮子，这样垃圾桶就可以跑起来了，并且并没有对垃圾桶的原本结构进行改造，没有在他的身上钻孔，只是将他完整的放到了一个箱子里面。这样，那个箱子就是我们说的装饰器。
 
+并且这个新的装置还是有收垃圾的功能的，并且这个功能就是原本的垃圾桶实现的，因此仍需要实现垃圾桶接口。
 
+并且为了方便扩展，我们将这个类定义为一个抽象类。
 
+**垃圾桶接口**
 
+```java
+interface Dustbin{
+    void collectGarbage();
+}
+```
+
+**垃圾桶实现类**
+
+```java
+class RefuseBin implements Dustbin{
+
+    @Override
+    public void collectGarbage() {
+        System.out.println("垃圾桶收集垃圾");
+    }
+}
+```
+
+**带轮子的抽象类**
+
+```java
+abstract class DustbinWithWheel implements Dustbin{
+    public Dustbin dustbin;
+    public DustbinWithWheel(Dustbin dustbin){
+        this.dustbin = dustbin;
+    }
+    public abstract void runToCollect();
+}
+```
+
+**带轮子垃圾桶的实现类**
+
+```java
+class ElectricDustbin extends DustbinWithWheel{
+
+    public ElectricDustbin(Dustbin dustbin){
+        super(dustbin);
+    }
+    @Override
+    public void collectGarbage() {
+        dustbin.collectGarbage();
+    }
+
+    @Override
+    public void runToCollect() {
+        System.out.println("电动小马达来喽~");
+    }
+}
+```
 
 ## 行为型模式
 
