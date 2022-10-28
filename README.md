@@ -1231,5 +1231,84 @@ class ElectricDustbin extends DustbinWithWheel{
 }
 ```
 
+### 享元模式
+
+运用共享技术有效地支持大量细粒度的对象。顾名思义就是一个共享模式，例如共享单车。
+
+他的本质是一个池技术，比如线程池、数据库连接池等等等
+
+如果我们要建立一个共享单车，首先要创建一个单车接口，因此单车包括自行车和电动车等，均需要进行分别创建。
+
+然后我们创建一个共享单车工厂，所有的共享单车均需要从此处取出，同时工厂应当使用单例模式。
+
+**单车接口**
+
+```java
+interface ISharedBike{
+    void ride();
+}
+```
+
+**自行车和电动车**
+
+```java
+class Bicycle implements ISharedBike{
+
+    @Override
+    public void ride() {
+        System.out.println("骑自行车");
+    }
+}
+class ElectricVehicle implements ISharedBike{
+
+    @Override
+    public void ride() {
+        System.out.println("骑电动车");
+    }
+}
+```
+
+**单车工厂**
+
+```java
+class BicycleFactory{
+        private BicycleFactory() {}
+        private static volatile BicycleFactory instance = null;
+        private static HashMap<String,ISharedBike> bikePool;
+
+        public static BicycleFactory getBicycleFactory() {
+            if (instance == null) {
+                synchronized (BicycleFactory.class) {
+                    if (instance == null) {
+                        instance = new BicycleFactory();
+                        bikePool = new HashMap<>(2);
+                        bikePool.put("bicycle",new Bicycle());
+                        bikePool.put("electricVehicle",new ElectricVehicle());
+                    }
+                }
+            }
+            return instance;
+        }
+
+        public ISharedBike getBike(String type){
+            if("electricVehicle".equals(type)){
+                return bikePool.get("electricVehicle");
+            }
+            return bikePool.get("bicycle");
+        }
+}
+```
+
+**客户端**
+
+```java
+public static void main(String[] args) {
+    BicycleFactory bicycleFactory = BicycleFactory.getBicycleFactory();
+    ISharedBike bicycle = bicycleFactory.getBike("bicycle");
+    bicycle.ride();
+
+}
+```
+
 ## 行为型模式
 
