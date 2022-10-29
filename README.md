@@ -21,7 +21,7 @@ Gang of Four
 
 这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。
 
-### 行为型模式（Behavioral Patterns）
+### 行为型模式
 
 这些设计模式特别关注对象之间的通信。
 
@@ -44,7 +44,7 @@ Gang of Four
 │		├─ 代理模式（Proxy Pattern）√
 │		├─ 组合模式（Composite Pattern）√
 │		├─ 装饰器模式（Decorator Pattern）√
-│		├─ 外观模式（Facade Pattern）
+│		├─ 外观模式（Facade Pattern）√
 │		├─ 享元模式（Flyweight Pattern）√
 │    	└─ 过滤器模式（Filter、Criteria Pattern）
 │    
@@ -1402,7 +1402,148 @@ public static void main(String[] args) {
 
 是不是简单多了
 
+### 过滤器模式
 
+过滤器模式（Filter Pattern）又称标准模式（Criteria Pattern），顾名思义通过一步一步的过滤，形成一层层的标准
+
+比如我们要设计一个软件，它可以将plmm都挑选出来
+
+于是我们首先定义一个参与人的类（为了方便，此除不再私有化成员属性）
+
+```java
+class People{
+    String name;
+    enum sex{
+        MALE,
+        FEMALE
+    };
+    int age;
+}
+```
+
+再定义一个过滤器的接口类
+
+```java
+interface Filter{
+    List<People> filter(List<People> peopleList);
+}
+```
+
+实现一个过滤性别的类
+
+```java
+class SexFilter implements Filter{
+
+    @Override
+    public List<People> filter(List<People> peopleList) {
+        return  peopleList.stream().filter(people -> {
+            return people.sex == 1;
+        }).collect(Collectors.toList());
+    }
+}
+```
+
+再实现一个年龄过滤器
+
+```java
+class AgeFilter implements Filter{
+
+    @Override
+    public List<People> filter(List<People> peopleList) {
+        return  peopleList.stream().filter(people -> {
+            return people.age <= 26;
+        }).collect(Collectors.toList());
+    }
+}
+```
+
+现在客户端调用
+
+```java
+public static void main(String[] args) {
+    List<People> list = new ArrayList<>();
+    list.add(new People("小明",20,1));
+    list.add(new People("小李",15,1));
+    list.add(new People("小蓝",28,1));
+    list.add(new People("小红",11,1));
+    list.add(new People("小王",21,0));
+    list.add(new People("小强",27,0));
+
+    System.out.println("参选人有：");
+    list.forEach(people -> {
+        System.out.print(people+" ");
+    });
+    System.out.println("\n过滤年龄");
+    Filter ageFilter = new AgeFilter();
+    list = ageFilter.filter(list);
+    list.forEach(people -> {
+        System.out.print(people+" ");
+    });
+    System.out.println("\n过滤性别");
+    Filter sexFilter = new SexFilter();
+    list = sexFilter.filter(list);
+    list.forEach(people -> {
+        System.out.print(people+" ");
+    });
+}
+```
+
+调用结果为：
+
+```
+参选人有：
+People{name='小明', age=20, sex=1} People{name='小李', age=15, sex=1} People{name='小蓝', age=28, sex=1} People{name='小红', age=11, sex=1} People{name='小王', age=21, sex=0} People{name='小强', age=27, sex=0} 
+过滤年龄
+People{name='小明', age=20, sex=1} People{name='小王', age=21, sex=0} 
+过滤性别
+People{name='小明', age=20, sex=1} 
+```
 
 ## 行为型模式
+
+### 责任链模式
+
+
+
+### 命令模式
+
+
+
+### 解释器模式
+
+
+
+### 迭代器模式
+
+
+
+### 中介者模式
+
+
+
+### 备忘录模式
+
+
+
+### 观察者模式
+
+
+
+### 状态模式
+
+
+
+### 空对象模式
+
+
+
+### 策略模式
+
+
+
+### 模板模式
+
+
+
+### 访问者模式
 
