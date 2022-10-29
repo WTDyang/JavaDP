@@ -45,7 +45,7 @@ Gang of Four
 │		├─ 组合模式（Composite Pattern）√
 │		├─ 装饰器模式（Decorator Pattern）√
 │		├─ 外观模式（Facade Pattern）
-│		├─ 享元模式（Flyweight Pattern）
+│		├─ 享元模式（Flyweight Pattern）√
 │    	└─ 过滤器模式（Filter、Criteria Pattern）
 │    
 └─ 行为型模式（Behavioral Patterns）
@@ -1309,6 +1309,100 @@ public static void main(String[] args) {
 
 }
 ```
+
+### 门面模式
+
+门面模式又称为外观模式，我们最常见到的案例就是SLF4J,
+
+门面模式隐藏了系统的复杂性，为客户端提供了一个简单的统一的简单接口
+
+例如我们要用不同的笔写字
+
+首先我们要定义不同颜色的类
+
+**接口类**
+
+```java
+interface ColorPen{
+    void draw();
+}
+```
+
+**颜色实现类**
+
+```java
+class RedPen implements ColorPen{
+
+    @Override
+    public void draw() {
+        System.out.println("红笔画画");
+    }
+}
+class BluePen implements ColorPen{
+
+    @Override
+    public void draw() {
+        System.out.println("蓝笔画画");
+    }
+}
+class GreenPen implements ColorPen{
+
+    @Override
+    public void draw() {
+        System.out.println("绿笔画画");
+    }
+}
+```
+
+你们我们如果先用红笔画再用绿笔画会怎么样？
+
+```java
+RedPen red = new RedPen();
+red.draw();
+GreenPen green = new GreenPen();
+green.draw();
+```
+
+客户端要自己去选择实现类，再去实例化、调用方法，太麻烦了！我们如何进行简化呢？
+
+我们建立一个彩笔类
+
+```java
+class ColorPen{
+    private RedPen redPen;
+    private BluePen bluePen;
+    private GreenPen greenPen;
+    public ColorPen(){
+        redPen = new RedPen();
+        bluePen = new BluePen();
+        greenPen = new GreenPen();
+    }
+
+    public void greenDraw(){
+        greenPen.draw();
+    }
+    public void blueDraw(){
+        bluePen.draw();
+    }
+    public void redDraw(){
+        redPen.draw();
+    }
+}
+```
+
+客户端再次调用
+
+```java
+public static void main(String[] args) {
+    ColorPen colorPen = new ColorPen();
+    colorPen.redDraw();
+    colorPen.greenDraw();
+}
+```
+
+是不是简单多了
+
+
 
 ## 行为型模式
 
