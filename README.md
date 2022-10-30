@@ -46,10 +46,10 @@ Gang of Four
 │		├─ 装饰器模式（Decorator Pattern）√
 │		├─ 外观模式（Facade Pattern）√
 │		├─ 享元模式（Flyweight Pattern）√
-│    	└─ 过滤器模式（Filter、Criteria Pattern）
+│    	└─ 过滤器模式（Filter、Criteria Pattern）√
 │    
 └─ 行为型模式（Behavioral Patterns）
-		├─ 责任链模式（Chain of Responsibility Pattern）
+		├─ 责任链模式（Chain of Responsibility Pattern）√
 		├─ 命令模式（Command Pattern）	
 		├─ 解释器模式（Interpreter Pattern）
 		├─ 迭代器模式（Iterator Pattern）
@@ -1503,7 +1503,90 @@ People{name='小明', age=20, sex=1}
 
 ### 责任链模式
 
+责任链模式，顾名思义室将执行责任任务的各个组件组装成链，客户端只需要直到这个链的头结点，就可以完成整个任务，客户端对其是不感知的，各个责任组件间依次调用。避免了大量的if else 语句，做到了低耦合的效果。
 
+并且当工作流程发生变化的时候，只需要动态更改调用次序，不需要队客户端进行更改，利于迭代，满足了开闭原则。
+
+责任链模式是一个种行为模式，过滤器模式是一种结构模式。责任链模式通常采用过滤器模式的方式进行实现。例如Java web的过滤器就是一种责任链模式。
+
+这里举出一个责任链模式是示例
+
+首先肯定是要定义一个责任链的抽象类，抽象类包含一个成员属性为下一个环节的实现类。并且包含setNext和getNext方法进行动态调整责任链。同时一个抽象方法handleRequest表示具体实现类的主要处理方法。
+
+```java
+abstract class Handler{
+    private Handler next;
+    public void setNext(Handler next) {
+        this.next=next;
+    }
+    public Handler getNext() {
+        return next;
+    }
+    public abstract boolean handleRequest(String request);
+}
+```
+
+接下来我们要实现 一个能够返回判断否有数字的具体类和小写字母的具体类
+
+```java
+class NumHandler extends Handler{
+
+    @Override
+    public boolean handleRequest(String request) {
+            boolean flag = false;
+            for(int i = 0;i < request.length();i++)
+            {
+                if( request.charAt(i) <='9' &&  request.charAt(i)>='0'){
+                    flag = true;
+                }
+            }
+        if(getNext()!=null){
+            flag = flag && getNext().handleRequest(request);
+        }
+        return flag;
+    }
+}
+class CharHandler extends Handler{
+
+    @Override
+    public boolean handleRequest(String request) {
+        boolean flag = false;
+        for(int i = 0;i < request.length();i++)
+        {
+            if( request.charAt(i) <='z' && request.charAt(i) >= 'a'){
+                flag = true;
+            }
+        }
+        if(getNext()!=null){
+            flag = flag && getNext().handleRequest(request);
+        }
+        return flag;
+    }
+}
+```
+
+客户端调用
+
+```java
+public static void main(String[] args) {
+    Handler handler1 = new NumHandler();
+    Handler handler2 = new CharHandler();
+    handler1.setNext(handler2);
+    Scanner scanner = new Scanner(System.in);
+    while (scanner.hasNext()){
+        String s = scanner.nextLine();
+        boolean b = handler1.handleRequest(s);
+        System.out.print(s);
+        if(b){
+            System.out.println("符合要求");
+        }
+        else {
+            System.out.println("不符合要求");
+        }
+    }
+
+}
+```
 
 ### 命令模式
 
@@ -1511,39 +1594,21 @@ People{name='小明', age=20, sex=1}
 
 ### 解释器模式
 
-
-
 ### 迭代器模式
-
-
 
 ### 中介者模式
 
-
-
 ### 备忘录模式
-
-
 
 ### 观察者模式
 
-
-
 ### 状态模式
-
-
 
 ### 空对象模式
 
-
-
 ### 策略模式
 
-
-
 ### 模板模式
-
-
 
 ### 访问者模式
 
