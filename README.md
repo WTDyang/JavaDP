@@ -50,7 +50,7 @@ Gang of Four
 │    
 └─ 行为型模式（Behavioral Patterns）
 		├─ 责任链模式（Chain of Responsibility Pattern）√
-		├─ 命令模式（Command Pattern）	
+		├─ 命令模式（Command Pattern）√	
 		├─ 解释器模式（Interpreter Pattern）
 		├─ 迭代器模式（Iterator Pattern）
 		├─ 中介者模式（Mediator Pattern）
@@ -1590,7 +1590,117 @@ public static void main(String[] args) {
 
 ### 命令模式
 
+命令模式将原本绑定在一起的视图层逻辑层分离开。命令模式为视图层进行方法的包装，由此视图层只需要调用控制类，就可以定制化完成系列化的指令而不需要在视图层上面添加逻辑代码
 
+首先建立一个命令的抽象接口
+
+```java
+interface Command{
+    void execute();
+}
+```
+
+定义不同的具体实现类
+
+```java
+class SingCommand implements Command{
+    People people;
+
+    public SingCommand(People people) {
+        this.people = people;
+    }
+
+    @Override
+    public void execute() {
+        people.sing();
+    }
+}
+class DanceCommand implements Command{
+    People people;
+
+    public DanceCommand(People people) {
+        this.people = people;
+    }
+
+    @Override
+    public void execute() {
+        people.dance();
+    }
+}
+class RapCommand implements Command{
+    People people;
+
+    public RapCommand(People people) {
+        this.people = people;
+    }
+
+    @Override
+    public void execute() {
+        people.rap();
+    }
+}
+class BasketballCommand implements Command{
+    People people;
+
+    public BasketballCommand(People people) {
+        this.people = people;
+    }
+
+    @Override
+    public void execute() {
+        people.basketBall();
+    }
+}
+```
+
+由上可知，具体的实现是一个people实现的
+
+```java
+class People{
+    void sing(){
+        System.out.println("唱");
+    }
+    void dance(){
+        System.out.println("跳");
+    }
+    void rap(){
+        System.out.println("RAP");
+    }
+    void basketBall(){
+        System.out.println("篮球");
+    }
+}
+```
+
+我们要将复杂的业务逻辑包装起来供客户端调用
+
+命令的包装类如下
+
+```java
+class Controller{
+    List<Command> list = new ArrayList<>();
+    void addCommand(Command command){
+        list.add(command);
+    }
+    void play(){
+        list.forEach(command -> command.execute());
+    }
+}
+```
+
+客户端调用
+
+```java
+public static void main(String[] args) {
+    People CXK = new People();
+    Controller controller = new Controller();
+    controller.addCommand(new SingCommand(CXK));
+    controller.addCommand(new DanceCommand(CXK));
+    controller.addCommand(new RapCommand(CXK));
+    controller.addCommand(new BasketballCommand(CXK));
+    controller.play();
+}
+```
 
 ### 解释器模式
 
