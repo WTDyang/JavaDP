@@ -1811,7 +1811,122 @@ public static void main(String[] args) {
 
 ### 迭代器模式
 
+在不暴露聚合对象内部信息的情况下完成对对象的顺序访问
 
+主要有四部分组成
+
+- 抽象迭代器（Iterator）：通常包含 hasNext()、next() 等方法，规定访问和遍历聚合元素的接口。
+
+- 抽象聚合（Aggregate）角色：自己定义的存储大量元素的集合类，通常内部使用List或Set等存储元素。
+
+- 具体聚合（ConcreteAggregate）角色：实现抽象聚合类，应当可以返回一个具体迭代器的实例。
+
+- 具体迭代器（Concretelterator）角色：迭代器接口的实现类。
+
+元素类
+
+```java
+class Student{
+    String name;
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "name: "+name;
+    }
+}
+```
+
+抽象迭代器
+
+```java
+interface Iterator{
+    boolean hasNext();
+    Student next();
+}
+```
+
+抽象聚合
+
+```java
+interface Students {
+    void appendStudent(Student student);
+
+    void removeStudent(Student student);
+
+    StudentIterator getStudentIterator();
+}
+```
+
+具体聚合
+
+```java
+class StudentHub implements Students {
+    /**
+     * 存储元素列表
+     */
+    private List<Student> list = new ArrayList<Student>();
+
+    @Override
+    public void appendStudent(Student student) {
+        this.list.add(student);
+    }
+
+    @Override
+    public void removeStudent(Student student) {
+        this.list.remove(student);
+    }
+
+    @Override
+    public StudentIterator getStudentIterator() {
+        return new StudentIterator(list);
+    }
+}
+```
+
+具体迭代器
+
+```java
+class StudentIterator implements Iterator{
+    private List<Student> list;
+    private int position = 0;
+
+    public StudentIterator(List<Student> list) {
+        this.list = list;
+    }
+    @Override
+    public boolean hasNext() {
+        return position < list.size();
+    }
+
+    @Override
+    public Student next() {
+        Student currentStudent = list.get(position);
+        position ++;
+        return currentStudent;
+    }
+}
+```
+
+客户端
+
+```java
+public static void main(String[] args) {
+    StudentHub studentHub = new StudentHub();
+    studentHub.appendStudent(new Student("小赵"));
+    studentHub.appendStudent(new Student("小钱"));
+    studentHub.appendStudent(new Student("小孙"));
+    studentHub.appendStudent(new Student("小李"));
+
+    StudentIterator studentIterator = studentHub.getStudentIterator();
+    while (studentIterator.hasNext()){
+        System.out.println(studentIterator.next());
+    }
+}
+```
 
 ### 中介者模式
 
