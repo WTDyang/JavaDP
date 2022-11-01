@@ -51,9 +51,9 @@ Gang of Four
 └─ 行为型模式（Behavioral Patterns）
 		├─ 责任链模式（Chain of Responsibility Pattern）√
 		├─ 命令模式（Command Pattern）√	
-		├─ 解释器模式（Interpreter Pattern）
-		├─ 迭代器模式（Iterator Pattern）
-		├─ 中介者模式（Mediator Pattern）
+		├─ 解释器模式（Interpreter Pattern）√
+		├─ 迭代器模式（Iterator Pattern）√
+		├─ 中介者模式（Mediator Pattern）√
 		├─ 备忘录模式（Memento Pattern）
 		├─ 观察者模式（Observer Pattern）
 		├─ 状态模式（State Pattern）
@@ -1930,7 +1930,63 @@ public static void main(String[] args) {
 
 ### 中介者模式
 
+中介模式目的在于多个对象之间的通信。将网状结构转化为星形结构。降低系统耦合度
 
+比如我们要实现一个聊天室
+
+聊天室的服务器就是一个中介，将消息散播给各个绑定的对象
+
+用户
+
+```java
+class ChatUser{
+    String name;
+
+    public ChatUser(String name) {
+        this.name = name;
+    }
+}
+```
+
+聊天室
+
+
+
+```java
+class ChatRoom{
+    List<ChatUser> users = new ArrayList<>();
+    void addUser(ChatUser user){
+        users.add(user);
+    }
+    void broadcast(ChatUser user,String message){
+        users.forEach(user1 -> {
+            if(user1.name != user.name){
+                System.out.println(user.name+"->"+user1.name+":"+message);
+            }
+        });
+    }
+}
+```
+
+客户端
+
+```java
+public static void main(String[] args) {
+    ChatUser zhao = new ChatUser("小赵");
+    ChatUser qian = new ChatUser("小钱");
+    ChatUser sun = new ChatUser("小孙");
+    ChatUser li = new ChatUser("小李");
+
+    ChatRoom chatRoom = new ChatRoom();
+    chatRoom.addUser(zhao);
+    chatRoom.addUser(qian);
+    chatRoom.addUser(sun);
+    chatRoom.addUser(li);
+
+    chatRoom.broadcast(zhao,"你们好啊");
+
+}
+```
 
 ### 备忘录模式
 
