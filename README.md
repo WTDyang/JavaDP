@@ -54,7 +54,7 @@ Gang of Four
 		├─ 解释器模式（Interpreter Pattern）√
 		├─ 迭代器模式（Iterator Pattern）√
 		├─ 中介者模式（Mediator Pattern）√
-		├─ 备忘录模式（Memento Pattern）
+		├─ 备忘录模式（Memento Pattern）√
 		├─ 观察者模式（Observer Pattern）
 		├─ 状态模式（State Pattern）
 		├─ 空对象模式（Null Object Pattern）
@@ -1990,7 +1990,88 @@ public static void main(String[] args) {
 
 ### 备忘录模式
 
+备忘录模式使用比较少。简而言之就是保存对象快照，并可以完成对快照的恢复功能
 
+实现中有基本几个类：文档类，也就是要保存的文件；快照类，也就是文件保存的形式，基本成员变量中要有文档的内容，并且可以额外加一些时间，名称之类的；快照库，用来保存快照
+
+文档类
+
+```java
+class Document {
+    private String context = "";
+
+    public String getContext(){
+        return context;
+    }
+    public void update(String s){
+        this.context = s;
+    }
+    public DocumentCopy save(){
+        return new DocumentCopy(context);
+    }
+    public void rollBack(DocumentCopy documentCopy){
+        this.context = documentCopy.getContext();
+    }
+
+}
+```
+
+快照类
+
+```java
+class DocumentCopy{
+    private String context;
+
+    public DocumentCopy(String context) {
+        this.context = context;
+    }
+    public String getContext(){
+        return this.context;
+    }
+}
+```
+
+快照库
+
+```java
+class DocumentCopyStack{
+    Stack<DocumentCopy> stack = new Stack<>();
+    void add(DocumentCopy documentCopy){
+        stack.push(documentCopy);
+    }
+    DocumentCopy get(){
+        return stack.pop();
+    }
+
+}
+```
+
+客户端
+
+```java
+public static void main(String[] args) {
+    DocumentCopyStack documentCopyStack = new DocumentCopyStack();
+
+    Document document = new Document();
+    document.update("版本1");
+    System.out.println(document.getContext());
+    documentCopyStack.add(document.save());
+    document.update("版本2");
+    System.out.println(document.getContext());
+    documentCopyStack.add(document.save());
+    document.update("版本3");
+    System.out.println(document.getContext());
+    documentCopyStack.add(document.save());
+
+    document.rollBack(documentCopyStack.get());
+    System.out.println(document.getContext());
+    document.rollBack(documentCopyStack.get());
+    System.out.println(document.getContext());
+    document.rollBack(documentCopyStack.get());
+    System.out.println(document.getContext());
+
+}
+```
 
 ### 观察者模式
 
