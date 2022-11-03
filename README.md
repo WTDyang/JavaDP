@@ -2075,7 +2075,91 @@ public static void main(String[] args) {
 
 ### 观察者模式
 
+观察者模式就是订阅发布模式，通常使用生产者消费者模型进行解决
 
+如今可以使用消息队列进行实现，也可以使用jdk的java.util.Observable 和 java.util.Observer 这两个类进行辅助
+
+发布订阅似乎更容易被大家所接受，顾名思义就是很多读者订阅了一个报刊，当这个报刊更新的时候，他会通知所有的读者进行阅读。
+
+首先定义一个订阅者接口，满足这个接口的人就可以订阅发布者的内容了
+
+```java
+abstract class Observer {
+   protected Subject subject;
+   public abstract void update();
+}
+```
+
+其中 Subject代表的是一个发布者，对应订阅来说就是订阅的一个主题
+
+```java
+class Subject {
+
+   private List<Observer> observers = new ArrayList<Observer>();
+   private int state;
+
+   public int getState() {
+      return state;
+   }
+
+   public void setState(int state) {
+      this.state = state;
+      // 数据已变更，通知观察者们
+      notifyAllObservers();
+   }
+
+   public void attach(Observer observer){
+      observers.add(observer);        
+   }
+
+   // 通知观察者们
+   public void notifyAllObservers(){
+      for (Observer observer : observers) {
+         observer.update();
+      }
+   }     
+}
+```
+
+接下来定义一个订阅者的类
+
+```java
+class BinaryObserver extends Observer {
+
+      // 在构造方法中进行订阅主题
+    public BinaryObserver(Subject subject) {
+        this.subject = subject;
+        // 通常在构造方法中将 this 发布出去的操作一定要小心
+        this.subject.attach(this);
+    }
+
+      // 该方法由主题类在数据变更的时候进行调用
+    @Override
+    public void update() {
+        String result = Integer.toBinaryString(subject.getState());
+        System.out.println("订阅的数据发生变化：" + result);
+    }
+}
+```
+
+客户端进行调用
+
+```java
+public static void main(String[] args) {
+    Subject subject = new Subject(1);
+    // 定义观察者
+    new SpecificObserver(subject);
+
+    // 模拟数据变更，这个时候，观察者们的 update 方法将会被调用
+    subject.setState(2);
+}
+```
+
+结果为：
+
+```
+订阅的数据发生变化：10
+```
 
 ### 状态模式
 
