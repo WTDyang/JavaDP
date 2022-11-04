@@ -55,8 +55,8 @@ Gang of Four
 		├─ 迭代器模式（Iterator Pattern）√
 		├─ 中介者模式（Mediator Pattern）√
 		├─ 备忘录模式（Memento Pattern）√
-		├─ 观察者模式（Observer Pattern）
-		├─ 状态模式（State Pattern）
+		├─ 观察者模式（Observer Pattern）√
+		├─ 状态模式（State Pattern）√
 		├─ 空对象模式（Null Object Pattern）
 		├─ 策略模式（Strategy Pattern）
 		├─ 模板模式（Template Pattern）
@@ -2163,7 +2163,76 @@ public static void main(String[] args) {
 
 ### 状态模式
 
+状态模式是一种消除if else语句的方法。核心在于给要控制的类一个状态类。可以根据改变状态来控制类的行为。
 
+首先定义状态接口
+
+```java
+interface State {
+    public void doAction(Context context);
+}
+```
+
+实现几个具体接口类
+
+```java
+class HungryState implements State{
+
+    @Override
+    public void doAction(Context context) {
+        System.out.println(context.toString()+"很饿");
+    }
+}
+class FullState implements State{
+
+    @Override
+    public void doAction(Context context) {
+        System.out.println(context.toString()+"饱了");
+    }
+}
+```
+
+使用状态模式的类
+
+```java
+class Context {
+    private State state;
+    private String name;
+    public Context(String name) {
+        this.name = name;
+        //默认策略
+        state = new HungryState();
+    }
+
+    @Override
+    public String toString() {
+        return "Context{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+    public State getState() {
+        return this.state;
+    }
+    public void doAction() {
+        this.state.doAction(this);
+    }
+}
+```
+
+客户端调用
+
+```java
+public static void main(String[] args) {
+    Context context = new Context("小明");
+    context.doAction();
+    context.setState(new FullState());
+    context.doAction();
+}
+```
 
 ### 空对象模式
 
