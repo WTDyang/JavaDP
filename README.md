@@ -57,7 +57,7 @@ Gang of Four
 		├─ 备忘录模式（Memento Pattern）√
 		├─ 观察者模式（Observer Pattern）√
 		├─ 状态模式（State Pattern）√
-		├─ 空对象模式（Null Object Pattern）
+		├─ 空对象模式（Null Object Pattern）√
 		├─ 策略模式（Strategy Pattern）
 		├─ 模板模式（Template Pattern）
 		└─ 访问者模式（Visitor Pattern）  
@@ -2236,7 +2236,101 @@ public static void main(String[] args) {
 
 ### 空对象模式
 
+(示例来源于菜鸟教程)
 
+空对象模式就是使用一个空对象类来代表这里的是一个空对象。这样做的目的是如果出现了一个空对象，也可以有一个默认的方法。
+
+于是我们先定义一个抽象类，他是行为对象（真实行为对象和空行为对象）的父类
+
+```java
+abstract class AbstractCustomer {
+    protected String name;
+    public abstract boolean isNil();
+    public abstract String getName();
+}
+```
+
+接下来定义一个真实行为类
+
+```java
+class RealCustomer extends AbstractCustomer {
+ 
+   public RealCustomer(String name) {
+      this.name = name;    
+   }
+   
+   @Override
+   public String getName() {
+      return name;
+   }
+   
+   @Override
+   public boolean isNil() {
+      return false;
+   }
+}
+```
+
+还有一个空行为对象类
+
+```java
+class NullCustomer extends AbstractCustomer {
+ 
+   @Override
+   public String getName() {
+      return "Not Available in Customer Database";
+   }
+ 
+   @Override
+   public boolean isNil() {
+      return true;
+   }
+}
+```
+
+那么如果产生这两种不太的对象呢，他们是同一个工厂生产的
+
+```java
+class CustomerFactory {
+   
+   public static final String[] names = {"Rob", "Joe", "Julie"};
+ 
+   public static AbstractCustomer getCustomer(String name){
+      for (int i = 0; i < names.length; i++) {
+         if (names[i].equalsIgnoreCase(name)){
+            return new RealCustomer(name);
+         }
+      }
+      return new NullCustomer();
+   }
+}
+```
+
+客户端进行调用
+
+```java
+public static void main(String[] args) {
+ 
+      AbstractCustomer customer1 = CustomerFactory.getCustomer("Rob");
+      AbstractCustomer customer2 = CustomerFactory.getCustomer("Bob");
+      AbstractCustomer customer3 = CustomerFactory.getCustomer("Julie");
+      AbstractCustomer customer4 = CustomerFactory.getCustomer("Laura");
+ 
+      System.out.println("Customers");
+      System.out.println(customer1.getName());
+      System.out.println(customer2.getName());
+      System.out.println(customer3.getName());
+      System.out.println(customer4.getName());
+   }
+```
+
+```
+Customers
+Rob
+Not Available in Customer Database
+Julie
+Not Available in Customer Database
+```
 
 ### 策略模式
 
