@@ -58,7 +58,7 @@ Gang of Four
 		├─ 观察者模式（Observer Pattern）√
 		├─ 状态模式（State Pattern）√
 		├─ 空对象模式（Null Object Pattern）√
-		├─ 策略模式（Strategy Pattern）
+		├─ 策略模式（Strategy Pattern）√
 		├─ 模板模式（Template Pattern）
 		└─ 访问者模式（Visitor Pattern）  
 ```
@@ -2334,7 +2334,90 @@ Not Available in Customer Database
 
 ### 策略模式
 
+策略模式看起来和状态模式是很像的。但是他们的关注点不同，在状态模式看来，更加关注他什么状态去做什么，但是策略模式更加关注他的行为应该是什么。
 
+策略模式的使用频度真的非常的高
+
+策略模式，是行为类在执行某行为的时候，方法通过客户端进行指定。
+
+如jdk创建线程池的时候，需要指定一个拒绝策略。它我们就是在调用创建线程池工厂的时候进行指定的。
+
+现在我们自己来设计一个策略模式
+
+首先完成一个策略接口
+
+```java
+interface Strategy {
+    void pay(int money);
+}
+```
+
+接下来实现几个策略
+
+```java
+class ElderCard implements Strategy{
+
+    @Override
+    public void pay(int money) {
+        System.out.printf("老年人免费---支付%d元 %n",0);
+    }
+}
+class CommonCard implements Strategy{
+    @Override
+    public void pay(int money) {
+        System.out.printf("无优惠---支付%d元 %n",money);
+    }
+}
+class ChildrenCard implements Strategy{
+
+    @Override
+    public void pay(int money) {
+        System.out.printf("儿童半折---支付%d元 %n",money >> 1);
+    }
+}
+```
+
+实现一个使用这个行为的具体类
+
+```java
+class Shop {
+    private Strategy strategy;
+
+    public Shop(Strategy strategy){
+        this.strategy = strategy;
+    }
+
+    public void pay(int money){
+       strategy.pay(money);
+    }
+}
+```
+
+客户端调用 
+
+```java
+Shop shop1 = new Shop(new ElderCard());
+shop1.pay(100);
+Shop shop2 = new Shop(new ChildrenCard());
+shop2.pay(100);
+Shop shop3 = new Shop(new CommonCard());
+shop3.pay(100);
+```
+
+老年人免费---支付0元 
+儿童半折---支付50元 
+无优惠---支付100元 
+
+甚至可以使用lambda表达式简化
+
+```java
+Shop shop = new Shop(money -> {
+    System.out.printf("lambda支付---支付%d元 %n",money);
+});
+shop.pay(100);
+```
+
+lambda支付---支付100元 
 
 ### 模板模式
 
