@@ -59,7 +59,7 @@ Gang of Four
 		├─ 状态模式（State Pattern）√
 		├─ 空对象模式（Null Object Pattern）√
 		├─ 策略模式（Strategy Pattern）√
-		├─ 模板模式（Template Pattern）
+		├─ 模板模式（Template Pattern）√
 		└─ 访问者模式（Visitor Pattern）  
 ```
 
@@ -2421,8 +2421,73 @@ lambda支付---支付100元
 
 ### 模板模式
 
+模板模式，就是父类通过一个final的方法，定义一个模板，子类来实现父类的抽象方法来实现整体流程行为的定制化
 
+首先定义抽象父类
+
+```java
+abstract class Cook{
+    abstract void washingVegetables();
+    abstract void cooking();
+    abstract void platter();
+
+    final void dinner(){
+        washingVegetables();
+        cooking();
+        platter();
+    }
+}
+```
+
+定义实现类
+
+```java
+class ChineseFood extends Cook{
+
+    @Override
+    void washingVegetables() {
+        System.out.println("胡萝卜、肉丁");
+    }
+
+    @Override
+    void cooking() {
+        System.out.println("爆炒");
+    }
+
+    @Override
+    void platter() {
+        System.out.println("出锅");
+    }
+}
+class WesternStyleFood extends Cook{
+
+    @Override
+    void washingVegetables() {
+        System.out.println("牛排、土豆");
+    }
+
+    @Override
+    void cooking() {
+        System.out.println("煎、炸");
+    }
+
+    @Override
+    void platter() {
+        System.out.println("装盘");
+    }
+}
+```
+
+客户端
+
+```java
+public static void main(String[] args) {
+    new WesternStyleFood().dinner();
+    new ChineseFood().dinner();
+}
+```
 
 ### 访问者模式
 
 ​	
+
