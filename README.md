@@ -60,7 +60,7 @@ Gang of Four
 		├─ 空对象模式（Null Object Pattern）√
 		├─ 策略模式（Strategy Pattern）√
 		├─ 模板模式（Template Pattern）√
-		└─ 访问者模式（Visitor Pattern）  
+		└─ 访问者模式（Visitor Pattern） √ 
 ```
 
 ### 设计模式的六大原则
@@ -2489,5 +2489,90 @@ public static void main(String[] args) {
 
 ### 访问者模式
 
-​	
+访问者模式是最复杂的一个设计模式
 
+他是一直为了实现数据结构与数据分类、实现简单化升级的一直设计模式
+
+可以降低系统耦合度
+
+他是实现系统访问抽象组件
+
+所有首先定义抽象组件接口
+
+```java
+
+interface ComputerPart {
+    public void accept();
+}
+```
+
+接下来定义具体实现类
+
+```java
+class CPU  implements ComputerPart {
+
+    void run(){
+        System.out.println("计算：");
+    }
+    @Override
+    public void accept() {
+        run();
+    }
+}
+```
+
+```java
+class RAM implements ComputerPart {
+    String info;
+    public RAM(String info){
+        this.info = info;
+    }
+    @Override
+    public void accept() {
+        System.out.println(info);
+    }
+}
+```
+
+定义一个访问者接口
+
+```java
+interface ComputerPartVisitor {
+    public void visit(CPU cpu);
+    public void visit(RAM ram);
+}
+```
+
+实体类实现接口
+
+```java
+class ComputerPartDisplayVisitor implements ComputerPartVisitor {
+
+    @Override
+    public void visit(CPU cpu) {
+        cpu.accept();
+    }
+
+    @Override
+    public void visit(RAM ram) {
+        ram.accept();
+    }
+}
+```
+
+客户端调用
+
+```java
+public static void main(String[] args) {
+    ComputerPartDisplayVisitor computerPartDisplayVisitor = new ComputerPartDisplayVisitor();
+    computerPartDisplayVisitor.visit(new CPU());
+    computerPartDisplayVisitor.visit(new RAM("1+1=2"));
+}
+```
+
+计算：
+1+1=2
+
+
+
+**本段完结！**
