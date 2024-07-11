@@ -1,3 +1,6 @@
+123
+<meta name="robots" content="noindex">
+
 # Java 设计模式
 
 ## 设计模式介绍
