@@ -1,0 +1,135 @@
+<mxfile host="app.diagrams.net" modified="2023-05-05T11:49:47.682Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="ERpLwEU3M2hHA8qf8V8T" version="21.2.9" type="github">
+  <diagram name="第 1 页" id="te5lLaXEVIapnKKBv4Zx">
+    <mxGraphModel dx="1244" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-9" value="IQuerySuperDealService#queryDetails" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-3" target="b-kPjW1G-giLgHTCQ-Zv-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-3" value="appKey:com.sankuai.hotel.hotelapi.detailpoi" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="160" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-4" target="b-kPjW1G-giLgHTCQ-Zv-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-6" value="/detailapi/spuInfo" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="b-kPjW1G-giLgHTCQ-Zv-5">
+          <mxGeometry x="-0.0222" y="-1" relative="1" as="geometry">
+            <mxPoint x="1" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-4" value="APP" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="70" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-7" value="com.sankuai.hotel.cbs.glue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="345" y="280" width="165" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-10" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;com.sankuai.hotelcrs.goodsquery&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="460" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-13" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-7" target="b-kPjW1G-giLgHTCQ-Zv-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="390" as="sourcePoint" />
+            <mxPoint x="440" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-14" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.hotel.biz.incubator&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="460" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-14" source="b-kPjW1G-giLgHTCQ-Zv-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="576" y="350" as="sourcePoint" />
+            <mxPoint x="630" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-16" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.travel.quark&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="460" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-17" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-16" source="b-kPjW1G-giLgHTCQ-Zv-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="766" y="350" as="sourcePoint" />
+            <mxPoint x="820" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-439" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.hotel.cbs.priceapi&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="460" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-440" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-439" source="b-kPjW1G-giLgHTCQ-Zv-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="571" y="350" as="sourcePoint" />
+            <mxPoint x="625" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-441" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.travel.dsg.tdcroom&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-442" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-441">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="350" as="sourcePoint" />
+            <mxPoint x="494" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-443" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.travel.dsg.tdcroom&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="600" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-444" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-443" source="b-kPjW1G-giLgHTCQ-Zv-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="330" as="sourcePoint" />
+            <mxPoint x="956.5" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-447" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;416c1a8c09084c7a8708ebb3df54d83d&quot; data-diff-id=&quot;ct-diff-id-7fb744c7-1588-441c-9cd9-5553ef7c1e2e&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;com.sankuai.hotel.cbs.poisummary&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="660" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-448" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="b-kPjW1G-giLgHTCQ-Zv-447">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="350" as="sourcePoint" />
+            <mxPoint x="710" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-449" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-14" target="b-kPjW1G-giLgHTCQ-Zv-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-450" value="" style="endArrow=classic;html=1;rounded=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-10" target="b-kPjW1G-giLgHTCQ-Zv-441">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="580" as="sourcePoint" />
+            <mxPoint x="130" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-451" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;ec4c968a810149fca888fff5a422b68d&quot; data-diff-id=&quot;ct-diff-id-9c0ffd04-2bfc-424b-81ab-177176911fce&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;RoomService.AsyncIface#getRoomInfoDetail&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="120" y="550" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-452" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;6f4846d404474cb08e4b2e87b01041e4&quot; data-diff-id=&quot;ct-diff-id-224bd93c-d3d4-4278-98b8-cdc82fc1fc92&quot; style=&quot;min-height: 24px; margin: 8px 0px; line-height: 140%;&quot;&gt;PriceCalcService.AsyncIface&lt;/p&gt;&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;6f4846d404474cb08e4b2e87b01041e4&quot; data-diff-id=&quot;ct-diff-id-224bd93c-d3d4-4278-98b8-cdc82fc1fc92&quot; style=&quot;min-height: 24px; margin: 8px 0px; line-height: 140%;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;#queryVoucherBagInfo&lt;/span&gt;&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="260" y="370" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-454" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;f921bea7568c48028004a6b28798a2d1&quot; data-diff-id=&quot;ct-diff-id-1ecf6e74-4cde-4699-a5a4-f63dda41691b&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;QuerySpuDetailService&lt;/p&gt;&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;f921bea7568c48028004a6b28798a2d1&quot; data-diff-id=&quot;ct-diff-id-1ecf6e74-4cde-4699-a5a4-f63dda41691b&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;#querySpuInfoByStrategy&lt;/p&gt;&lt;span&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="80" y="350" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-456" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;2afe40929abc4248b4aa8c90020f1598&quot; data-diff-id=&quot;ct-diff-id-696d2620-c42a-436b-a85e-00c7c9fb67f0&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;RPCSummaryService.AsyncIface#getSummaryV2&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="260" y="600" width="290" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-457" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-439" target="b-kPjW1G-giLgHTCQ-Zv-447">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="470" as="sourcePoint" />
+            <mxPoint x="430" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-458" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="b-kPjW1G-giLgHTCQ-Zv-439" target="b-kPjW1G-giLgHTCQ-Zv-443">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="540" as="sourcePoint" />
+            <mxPoint x="430" y="670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-459" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;c487469585514fd39bf1285dad32f1dc&quot; data-diff-id=&quot;ct-diff-id-f909e49d-0126-4a22-b86d-51fea97364e3&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;RealRoomService.AsyncIface#getRealRoomInfoDetail&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="510" y="550" width="310" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-460" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;98737f3808ec480fb9c54ec5af5dccb6&quot; data-diff-id=&quot;ct-diff-id-3b97614a-cfca-4fbb-b110-ff2a0c91733c&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;IMetaDataThriftService&lt;/p&gt;&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;98737f3808ec480fb9c54ec5af5dccb6&quot; data-diff-id=&quot;ct-diff-id-3b97614a-cfca-4fbb-b110-ff2a0c91733c&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;#metaSearch&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="380" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b-kPjW1G-giLgHTCQ-Zv-461" value="&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;7707a0afa4ba4280a67be022f0b09c9b&quot; data-diff-id=&quot;ct-diff-id-d63c27f4-3e21-43ef-884b-21667c741ad2&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;RpcTdcSpuService.AsyncIface&lt;/p&gt;&lt;p data-pm-slice=&quot;1 1 []&quot; data-node-id=&quot;7707a0afa4ba4280a67be022f0b09c9b&quot; data-diff-id=&quot;ct-diff-id-d63c27f4-3e21-43ef-884b-21667c741ad2&quot; style=&quot;min-height: 24px;margin: 8px 0;&quot;&gt;#batchGetSpuAttrs&lt;/p&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="570" y="370" width="190" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
