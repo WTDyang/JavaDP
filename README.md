@@ -1,4 +1,4 @@
-123
+123456
 <meta name="robots" content="noindex">
 
 # Java 设计模式
